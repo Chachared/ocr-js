@@ -16,7 +16,7 @@ fileSelector.onchange = () => {
 start.onclick = () => {
     textarea.innerHTML = ''
     const rec = new Tesseract.TesseractWorker();
-    rec.recognize(fileSelector.files[0])
+    rec.recognize(fileSelector.files[0], 'fra')
         .progress(function (response) {
             if (response.status == 'recognizing text') {
                 progress.innerHTML = response.status + '   ' + response.progress
@@ -31,11 +31,10 @@ start.onclick = () => {
             //première ligne du fichier
             var txt = 'Données récupérées:\n';
 
-            //ajoute la date récupérée à la suite du fichier
+            //ajoute la data récupérée à la suite du fichier
             txt += convertedText;
             txt += "\n";
             
-            document.write(txt);
 
             var hiddenElement = document.createElement('a');
             hiddenElement.href = 'data:text/csv;charset=utf-8,' + encodeURI(txt);
