@@ -33,7 +33,7 @@ start.onclick = () => {
             const lines = convertedText.split('\n');
 
             //première ligne du fichier
-            var csv = 'marque, modèle, années de production, converti par\n';
+            var csv = 'marque, modèle, années de production, ajouté par\n';
 
             //récupérer la marque et le nom saisis par l'utilisateur
             var brand = brandSelector.value;
@@ -44,7 +44,6 @@ start.onclick = () => {
                 const words = line.split(' ')
                 const years = words.splice(-1, 1)
                 const model = words.join(' ')
-                console.log(model, years)
                 csv += brand;
                 csv += ",";
                 csv += model;
@@ -55,14 +54,18 @@ start.onclick = () => {
                 csv += "\n";
             }
 
+            if (brand && addedBy) {
+                var hiddenElement = document.createElement('a');
+                hiddenElement.href = 'data:text/csv;charset=utf-8,' + encodeURI(csv);
+                hiddenElement.target = '_blank';
 
-            var hiddenElement = document.createElement('a');
-            hiddenElement.href = 'data:text/csv;charset=utf-8,' + encodeURI(csv);
-            hiddenElement.target = '_blank';
+                //choix du nom du fichier créé
+                hiddenElement.download = 'test-ocr.csv';
+                hiddenElement.click();
+            } else {
+                alert('Veuillez renseigner la marque et votre nom !')
+            }
 
-            //choix du nom du fichier créé
-            hiddenElement.download = 'test-ocr.csv';
-            hiddenElement.click();
         })
 }
 
